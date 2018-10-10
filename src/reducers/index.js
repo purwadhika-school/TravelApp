@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { PENDING, FULFILLED, REJECTED } from "redux-promise-middleware";
-import { GET_BANNERS, GET_DESTINATIONS } from "../actions";
+import { GET_BANNERS, GET_DESTINATIONS, GET_REVIEWERS } from "../actions";
 
 const databanners = (
   state = {
@@ -66,9 +66,38 @@ const datadestinations = (
   }
 };
 
+const datareviewers = (state = {
+  isFetching: false,
+  items: []
+}, actions) => {
+  switch (actions.type){
+    case `${GET_REVIEWERS}_PENDING`:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case `${GET_REVIEWERS}_FULFILLED`:
+      return {
+        isFetching: false,
+        items: actions.payload
+      }
+
+    case `${GET_REVIEWERS}_REJECTED`:
+      return {
+        ...state,
+        isFetching: false
+      }
+
+    default: 
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
   databanners,
-  datadestinations
+  datadestinations,
+  datareviewers
 });
 
 export default rootReducer;

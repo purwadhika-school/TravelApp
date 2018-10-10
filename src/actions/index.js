@@ -8,7 +8,7 @@ export const getBannners = () => {
   };
 };
 
-fetchBanners = () => {
+const fetchBanners = () => {
   const url = "http://172.104.50.9:3000/api/banner_lists";
   return axios
     .get(url)
@@ -39,3 +39,28 @@ const fetchDestination = () => {
       console.log(err);
     });
 };
+
+
+export const GET_REVIEWERS = 'GET_REVIEWERS'
+export const getReviewers = () => {
+  return {
+    type: GET_REVIEWERS,
+    payload: fetchReviewer()
+  }
+}
+
+const fetchReviewer = () => {
+  const url = 'http://172.104.50.9:3000/api/reviewer_lists'
+  return axios.get(url)
+    .then(response => {
+      console.log('abc ', response)
+      return response.data
+    })
+    .catch(error => {
+      console.log(error)
+    })
+}
+
+
+// http://172.104.50.9:3000/api/reviewer_lists
+
